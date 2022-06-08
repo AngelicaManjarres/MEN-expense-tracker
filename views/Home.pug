@@ -1,0 +1,46 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css", rel="stylesheet", integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor", crossorigin="anonymous")
+        title Expense Tracker
+    body 
+        div(class="container text-center")
+            div
+                h1(class="m-3 text-secondary") Expense tracker
+                if totalIncome>0 
+                    p.display-6 $#{totalIncome}
+
+                else 
+                    pp(class="lead") There's no income
+                form( class="form m-3" action="/income" method="post")
+                    input(type="number" class="form-group" name="amount")
+                    button(class="btn btn-sm form-group") Add Income
+                
+                form(action="/reset" method="get")
+                    button(class="btn btn-md btn-danger form-group mb-5") Reset Income
+                
+            each expense in allExpenses
+
+                div(class="card m-auto" style="width: 24rem;")
+                    div.card-header
+                        h3=expense.title
+                    div.card-body
+                        p=expense.amount
+                        a(href="/update/"+expense._id, class="btn btn-info m-1") Edit
+                        a(href="/delete/"+expense._id, class="btn btn-danger m-1") Delete
+                div.text-center.m-3
+            
+            if total<0
+                p.display-6.text-danger You are on a deficit: $#{total}
+            else 
+                p.display-6.text-success Remaining $#{total}
+                
+            a(href="/addExpense", class="btn btn-success m-3") Add New Expense
+
+
+
+
+    script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js", integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2", crossorigin="anonymous") 
