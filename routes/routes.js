@@ -17,6 +17,7 @@ connection()
 
 //Bring all data and do the pertinent substraction
 router.get('/', async (req, res) => {
+    //These two are exactly the same. Turn it into a function and bring it to save code
     await Income.find({})
     .then(allIncome => {
         allIncome.forEach(income => {
